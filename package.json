@@ -1,0 +1,30 @@
+{
+  "name": "iota-raspberry-api",
+  "version": "1.0.0",
+  "description": "Node JS REST API to store claims on the device and create MAM channels on the IOTA tangle",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flooji/IOTA-Raspberry-API.git"
+  },
+  "keywords": [
+    "IOTA",
+    "NodeJS",
+    "tangle",
+    "claim",
+    "Idenity",
+    "IDoT",
+    "Raspberry",
+    "Pi",
+    "MAM"
+  ],
+  "author": "flooji",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/flooji/IOTA-Raspberry-API/issues"
+  },
+  "homepage": "https://github.com/flooji/IOTA-Raspberry-API#readme"
+}
