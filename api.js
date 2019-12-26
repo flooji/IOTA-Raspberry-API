@@ -1,11 +1,13 @@
 var http = require('http')
 var express = require('express')
+var cors = require('cors')
 var id = require('./create_ID')
 var tokenGenerator = require('./tokenGenerator')
 
 var app = express()
 
 app.use(express['static'](__dirname ))
+app.use(cors())
 
 //Express route to authenticate a device
 app.get('/authenticate', function (req, res) {
