@@ -12,7 +12,7 @@ app.use(cors())
 //Express route to authenticate a device
 app.get('/authenticate', function (req, res) {
     try {
-        let payload = tokenGenerator.token
+        let payload = tokenGenerator.token()
         res.status(200).send({jwt:payload})
         console.log('Authentication request')
     } catch(err) {
