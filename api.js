@@ -2,7 +2,7 @@ var http = require('http')
 var express = require('express')
 var cors = require('cors')
 var id = require('./create_ID')
-var tokenGenerator = require('./tokenGenerator')
+var tokenGenerator = require('./authenticate/tokenGenerator')
 
 var app = express()
 
