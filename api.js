@@ -3,7 +3,6 @@ var express = require('express')
 var cors = require('cors')
 var id = require('./create_ID')
 var tokenGenerator = require('./authenticate/tokenGenerator')
-
 var app = express()
 
 app.use(express['static'](__dirname ))
