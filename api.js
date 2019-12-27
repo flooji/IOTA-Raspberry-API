@@ -43,8 +43,8 @@ app.get('/create-claim', function (req, res) {
 }) 
 
 app.get('/create-tracking', function(req,res) {
-    const data = req.body.data //receive expiration date
-    const expiration = data.expirationDate
+    //const data = req.body.data //receive expiration date
+    //const expiration = data.expirationDate
     const sideKey = setupTracking()
     const result = startTracking(sideKey)
     if(result){
