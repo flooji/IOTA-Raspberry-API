@@ -3,6 +3,7 @@ const fs = require('fs')
 const Mam = require('@iota/mam')
 const { asciiToTrytes } = require('@iota/converter')
 const CryptoJS = require('crypto-js')
+const shelljs = require('shelljs')
 
 //Create a claim with some predefined attributes and a variable data attribute
 exports.createClaim = (data,tracking) => {
@@ -56,11 +57,21 @@ exports.setupTracking = () => {
     return key
 }
 
+//Start tracking
+exports.startTracking = (key) => {
+    if (shelljs.exec('pm2 start publish-on-same-channel.js').code !== 0) {
+        shell.exit(1)
+        return false
+    } else {
+        return true
+    }
+}
+
 //Publishes Identity-claim to tangle
 exports.registerIdentity = async hash => {
     //Mam setup
     let mode = 'restricted'
-    let sideKey = 'XuL34ALSe_r' //can change with updates
+    let sideKey = 'XuL34ALSe_r' //could change with updates
     let provider = 'https://nodes.devnet.iota.org'
     let mamExplorerLink = `https://mam-explorer.firebaseapp.com/?provider=${encodeURIComponent(provider)}&mode=${mode}&root=`
     

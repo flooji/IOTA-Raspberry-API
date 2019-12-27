@@ -25,16 +25,8 @@ app.get('/authenticate', function (req, res) {
         res.status(403).send('Could not authenticate device')
     }
 }) 
-//Express route to create a new claim
-// app.post('/create-claim', (req, res) => {
-//     const data = req.body.data
-//     id.createPackagingUnit(data).then(result => {
-//         console.log('Claim created')
-//         res.status(200).send(result)
-//     })
-// })
+
 app.get('/create-claim', function (req, res) {
-    //convert into POST request /get data from form-------------------------------------------------------TBD 
     let data = {
         commodityGroup: 'Cameras',
         seriesNumber: '101010',
@@ -49,6 +41,14 @@ app.get('/create-claim', function (req, res) {
         res.status(200).send(result)
     })
 }) 
+
+app.get('/create-tracking', function(req,res) {
+    const data = 24//req.body.data //receive expiration date
+    //const expiration = data.expirationDate
+    const sideKey = setupTracking()
+    const result = startTracking(sideKey)
+    res.status(200).send(result)
+})
   
   
 // Express route for any other unrecognised incoming requests
