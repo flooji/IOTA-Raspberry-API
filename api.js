@@ -2,11 +2,11 @@ var http = require('http')
 var express = require('express')
 var id = require('./create_ID')
 var {token} = require('./authenticate/tokenGenerator')
+var {setupTracking,startTracking} = require('./helpers.js')
 var fs = require('fs')
+
 var app = express()
-
 app.use(express['static'](__dirname ))
-
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -43,11 +43,13 @@ app.get('/create-claim', function (req, res) {
 }) 
 
 app.get('/create-tracking', function(req,res) {
-    const data = 24//req.body.data //receive expiration date
-    //const expiration = data.expirationDate
+    const data = req.body.data //receive expiration date
+    const expiration = data.expirationDate
     const sideKey = setupTracking()
     const result = startTracking(sideKey)
-    res.status(200).send(result)
+    if(result){
+     res.status(200).send(sideKey)
+    } else {res.status(403).send('Could not start tracking.')}
 })
   
   
