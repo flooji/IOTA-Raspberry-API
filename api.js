@@ -1,7 +1,8 @@
 var http = require('http')
 var express = require('express')
 var id = require('./create_ID')
-var tokenGenerator = require('./authenticate/tokenGenerator')
+var {token} = require('./authenticate/tokenGenerator')
+var fs = require('fs')
 var app = express()
 
 app.use(express['static'](__dirname ))
@@ -15,7 +16,9 @@ app.use(function(req, res, next) {
 //Express route to authenticate a device
 app.get('/authenticate', function (req, res) {
     try {
-        let payload = tokenGenerator.token()
+        const claim =  fs.readFileSync('./authenticate/IDclaim.json')
+        const privateKey = fs.readFileSync('./authenticate/privateKey.pem')
+        let payload = token(claim,privateKey)
         res.status(200).send({jwt:payload})
         console.log('Authentication request')
     } catch(err) {
