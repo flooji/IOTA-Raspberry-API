@@ -12,7 +12,7 @@ const gps = new GPS
 const interval = 15 //every x sec
 
 //Counter
-const counter = 0
+var counter = 0
 
 //Serial port setup
 const SerialPort = require('serialport')
@@ -53,7 +53,7 @@ let stored = fs.readFileSync('mam_state.json','utf8')
 //console.log('Stored: ',stored)
 
 let mamState = JSON.parse(stored)
-console.log('MamState: ',mamState)
+//console.log('MamState: ',mamState)
 
 //Change MAM state to previous and change mode
 Mam.changeMode(mamState, mode, sideKey)
@@ -70,11 +70,11 @@ const publish = async packet => {
 
     // Attach the payload
     await Mam.attach(message.payload, message.address, 3, 9)
-
+	try{
     if(counter===0){ //the first root should be stored in order to track the entire channel
-      fs.writeFileSync('root.json',JSON.stringify(message.root))
+      fs.writeFileSync('root.json',JSON.stringify({root: message.root,link: `${mamExplorerLink}${root}`}))
       counter++
-    }
+    }} catch(err){console.log(err)}
 
     console.log('Published', packet, '\n');
     return message.root
@@ -95,7 +95,7 @@ const publishGPS = async () => {
     timestamp: (new Date()).toLocaleString()
   })
 
-  console.log(`Verify with MAM Explorer:\n${mamExplorerLink}${root}\n`)
+  //console.log(`Verify with MAM Explorer:\n${mamExplorerLink}${root}\n`)
   console.log('Root: ',root)
   return root
 } else console.log(`No GPS-signal... Will try again in ${interval} seconds.`)
