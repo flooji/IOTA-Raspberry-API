@@ -48,8 +48,9 @@ app.get('/create-tracking', function(req,res) {
     const sideKey = setupTracking()
     const result = startTracking(sideKey)
     if(result){
-        const root =  fs.readFileSync('./root.json')
-        res.status(200).send(root)
+        const root =  fs.readFileSync('./root.json','utf-8')
+        console.log('Root', root)
+	//res.status(200).send(JSON.parse(root))
     } else {res.status(403).send('Could not start tracking.')}
 })
   

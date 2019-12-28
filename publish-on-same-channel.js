@@ -81,7 +81,8 @@ const publish = async packet => {
 }
 
 const publishGPS = async () => {
-  let dataObj = {
+ if(gps.state.lat){ //checks if GPS signal is available
+ let dataObj = {
     time:   gps.state.time,
     lat:    gps.state.lat,
     lon:    gps.state.lon,
@@ -99,8 +100,9 @@ const publishGPS = async () => {
     fs.writeFileSync(`root.json`,JSON.stringify(link))
     counter++
   }
-  //console.log(`Verify with MAM Explorer:\n${mamExplorerLink}${root}\n`)
-  //console.log('Root: ',root)
+  console.log(`Verify with MAM Explorer:\n${mamExplorerLink}${root}\n`)
+  console.log('Root: ',root)
+} else console.log(`No GPS-signal... Will try again in ${interval} seconds.`)
 }
 
 //Set interval to publish data
