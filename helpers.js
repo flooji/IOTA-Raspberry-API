@@ -58,8 +58,18 @@ exports.setupTracking = () => {
 }
 
 //Start tracking
-exports.startTracking = (key) => {
+exports.startTracking = () => {
     if (shelljs.exec('pm2 start publish-on-same-channel.js').code !== 0) {
+        shelljs.exit(1)
+        return false
+    } else {
+        return true
+    }
+}
+
+//Start tracking
+exports.stopTracking = () => {
+    if (shelljs.exec('pm2 delete publish-on-same-channel.js').code !== 0) {
         shelljs.exit(1)
         return false
     } else {

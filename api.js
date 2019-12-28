@@ -2,7 +2,7 @@ var http = require('http')
 var express = require('express')
 var id = require('./create_ID')
 var {token} = require('./authenticate/tokenGenerator')
-var {setupTracking,startTracking} = require('./helpers.js')
+var {setupTracking,startTracking,stopTracking} = require('./helpers.js')
 var fs = require('fs')
 
 var app = express()
@@ -46,12 +46,21 @@ app.get('/create-tracking', function(req,res) {
     //const data = req.body.data //receive expiration date
     //const expiration = data.expirationDate
     const sideKey = setupTracking()
-    const result = startTracking(sideKey)
+    let result = startTracking()
     if(result){
         const root =  fs.readFileSync('./root.json','utf-8')
         console.log('Root', root)
-	//res.status(200).send(JSON.parse(root))
+	res.status(200).send(JSON.parse(root))
     } else {res.status(403).send('Could not start tracking.')}
+})
+
+app.get('/stop-tracking', function(req,res) {
+    //const data = req.body.data //receive expiration date
+    //const expiration = data.expirationDate
+    let result = stopTracking()
+    if(result){
+	    res.status(200).send(true)
+    } else {res.status(403).send(false)}
 })
   
   
