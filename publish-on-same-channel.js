@@ -2,7 +2,7 @@
  * @Author: florence.pfammatter 
  * @Date: 2019-11-01 14:52:20 
  * @Last Modified by: florence.pfammatter
- * @Last Modified time: 2019-12-27 23:40:38
+ * @Last Modified time: 2019-12-28 01:08:39
  */
 
 //Require MAM package from iota.js
@@ -45,6 +45,7 @@ const mode = 'restricted'
 const sideKey = 'VERYSECRETKEYFORME' //Change to process.env - variable
 const provider = 'https://nodes.devnet.iota.org'
 const mamExplorerLink = `https://mam-explorer.firebaseapp.com/?provider=${encodeURIComponent(provider)}&mode=${mode}&key=${sideKey.padEnd(81, '9')}&root=`
+const counter = 0
 
 //Put your own seed here 
 const seed = 'LHOSEFEJOREBERAKWDFHIWMA9DKGFOEPJBLWWVRTFRZBZSTVOZZWRVWRDDQMKIRYVRFXBQDYNEHAXPTED'
@@ -93,9 +94,13 @@ const publishGPS = async () => {
     timestamp: (new Date()).toLocaleString()
   })
 
+  if(counter===0){
+    let link = `${mamExplorerLink}${root}`
+    fs.writeFileSync(`root.json`,JSON.stringify(link))
+    counter++
+  }
   //console.log(`Verify with MAM Explorer:\n${mamExplorerLink}${root}\n`)
-  console.log('Root: ',root)
-  return root
+  //console.log('Root: ',root)
 }
 
 //Set interval to publish data
