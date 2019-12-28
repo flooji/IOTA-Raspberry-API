@@ -70,7 +70,7 @@ const publish = async packet => {
 
     // Attach the payload
     await Mam.attach(message.payload, message.address, 3, 9)
-
+    
     if(counter===0){ //the first root should be stored in order to track the entire channel
       fs.writeFileSync('root.json',JSON.stringify(message.root))
       counter++
