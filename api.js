@@ -45,6 +45,7 @@ app.get('/create-claim', function (req, res) {
 app.get('/create-tracking', function(req,res) {
     //const data = req.body.data //receive expiration date
     //const expiration = data.expirationDate
+   try{
     const sideKey = setupTracking()
     let result = startTracking()
     if(result){
@@ -52,6 +53,7 @@ app.get('/create-tracking', function(req,res) {
         console.log('Root', root)
 	res.status(200).send(JSON.parse(root))
     } else {res.status(403).send('Could not start tracking.')}
+}catch(err){res.status(403).send(err)}
 })
 
 app.get('/stop-tracking', function(req,res) {
