@@ -1,10 +1,3 @@
-/*
- * @Author: florence.pfammatter 
- * @Date: 2019-11-01 14:52:20 
- * @Last Modified by: florence.pfammatter
- * @Last Modified time: 2019-12-28 01:08:39
- */
-
 //Require MAM package from iota.js
 const Mam = require('@iota/mam')
 const { asciiToTrytes } = require('@iota/converter')
@@ -42,10 +35,9 @@ port.pipe(parser) //Parse data from port
 
 //MAM setup
 const mode = 'restricted'
-const sideKey = 'VERYSECRETKEYFORME' //Change to process.env - variable
+const sideKey = 'VERYSECRETKEYFORME'
 const provider = 'https://nodes.devnet.iota.org'
 const mamExplorerLink = `https://mam-explorer.firebaseapp.com/?provider=${encodeURIComponent(provider)}&mode=${mode}&key=${sideKey.padEnd(81, '9')}&root=`
-const counter = 0
 
 //Put your own seed here 
 const seed = 'LHOSEFEJOREBERAKWDFHIWMA9DKGFOEPJBLWWVRTFRZBZSTVOZZWRVWRDDQMKIRYVRFXBQDYNEHAXPTED'
@@ -76,11 +68,12 @@ const publish = async packet => {
     // Attach the payload
     await Mam.attach(message.payload, message.address, 3, 9)
 
-    //console.log('Published', packet, '\n');
+    console.log('Published', packet, '\n');
     return message.root
 }
 
 const publishGPS = async () => {
+  if(gps.state.lat){ //checks if GPS signal is available
   let dataObj = {
     time:   gps.state.time,
     lat:    gps.state.lat,
@@ -94,13 +87,10 @@ const publishGPS = async () => {
     timestamp: (new Date()).toLocaleString()
   })
 
-  if(counter===0){
-    let link = `${mamExplorerLink}${root}`
-    fs.writeFileSync(`root.json`,JSON.stringify(link))
-    counter++
-  }
-  //console.log(`Verify with MAM Explorer:\n${mamExplorerLink}${root}\n`)
-  //console.log('Root: ',root)
+  console.log(`Verify with MAM Explorer:\n${mamExplorerLink}${root}\n`)
+  console.log('Root: ',root)
+  return root
+} else console.log(`No GPS-signal... Will try again in ${interval} seconds.`)
 }
 
 //Set interval to publish data
