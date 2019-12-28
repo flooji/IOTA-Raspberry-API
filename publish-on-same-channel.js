@@ -11,6 +11,9 @@ const gps = new GPS
 //Interval of getting GPS data
 const interval = 15 //every x sec
 
+//Counter
+const counter = 0
+
 //Serial port setup
 const SerialPort = require('serialport')
 const parsers = SerialPort.parsers
@@ -67,6 +70,11 @@ const publish = async packet => {
 
     // Attach the payload
     await Mam.attach(message.payload, message.address, 3, 9)
+
+    if(counter===0){ //the first root should be stored in order to track the entire channel
+      fs.writeFileSync('root.json',JSON.stringify(message.root))
+      counter++
+    }
 
     console.log('Published', packet, '\n');
     return message.root
