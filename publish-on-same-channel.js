@@ -9,7 +9,7 @@ const GPS = require('gps')
 const gps = new GPS
 
 //Interval of getting GPS data
-const interval = 15 //every x sec
+const interval = 120 //every x sec
 
 //Counter
 var counter = 0
@@ -38,19 +38,21 @@ port.pipe(parser) //Parse data from port
 
 //MAM setup
 const mode = 'restricted'
-const sideKey = 'VERYSECRETKEYFORME'
+const sideKey = 'AcILSXIO'
 const provider = 'https://nodes.devnet.iota.org'
 const mamExplorerLink = `https://mam-explorer.firebaseapp.com/?provider=${encodeURIComponent(provider)}&mode=${mode}&key=${sideKey.padEnd(81, '9')}&root=`
 
 //Put your own seed here 
-const seed = 'LHOSEFEJOREBERAKWDFHIWMA9DKGFOEPJBLWWVRTFRZBZSTVOZZWRVWRDDQMKIRYVRFXBQDYNEHAXPTED'
+const seed = 'CBIV9V9HDEDQKMN9QZJVOULIQJERAIC9VNG9CXCTAYLMVLLFPYZTJB9USRWHWMZYCSQESUMFHWZVFDHWM'
+//'ZOEB9BJXYXUNYC9BJDNYJVKWPUDZFZHVMY9OLD9NKCVOUS9BSXHZNIUYYITMRDITKJJSAZPHCIOWXSBQN' 
+//'LHOSEFEJOREBERAKWDFHIWMA9DKGFOEPJBLWWVRTFRZBZSTVOZZWRVWRDDQMKIRYVRFXBQDYNEHAXPTED'
 
 //Initialize MAM state object
 Mam.init(provider,seed)
 
 //Recover previous MAM state
 let stored = fs.readFileSync('mam_state.json','utf8')
-//console.log('Stored: ',stored)
+console.log('Stored: ',stored)
 
 let mamState = JSON.parse(stored)
 //console.log('MamState: ',mamState)
@@ -70,17 +72,19 @@ const publish = async packet => {
 
     // Attach the payload
     await Mam.attach(message.payload, message.address, 3, 9)
-
-    if(counter===0){ //the first root should be stored in order to track the entire channel
-      fs.writeFileSync('root.json',JSON.stringify({root: message.root,link: `${mamExplorerLink}${root}`}))
-      counter++
+    console.log(counter)
+    if(counter==0){ //the first root should be stored in order to track the entire channel
+     fs.writeFile(`root.json`, JSON.stringify({root: message.root, link:`${mamExplorerLink}${message.root}`}), function (err) {
+         if (err) throw err
+      })
+     counter++
     }
-
     console.log('Published', packet, '\n');
     return message.root
 }
 
 const publishGPS = async () => {
+console.log(gps.state)
   if(gps.state.lat){ //checks if GPS signal is available
   let dataObj = {
     time:   gps.state.time,
@@ -95,11 +99,12 @@ const publishGPS = async () => {
     timestamp: (new Date()).toLocaleString()
   })
 
-  //console.log(`Verify with MAM Explorer:\n${mamExplorerLink}${root}\n`)
   console.log('Root: ',root)
   return root
 } else console.log(`No GPS-signal... Will try again in ${interval} seconds.`)
 }
+
+publishGPS()
 
 //Set interval to publish data
 setInterval(publishGPS,interval*1000)

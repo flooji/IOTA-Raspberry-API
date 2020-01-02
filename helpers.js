@@ -42,7 +42,8 @@ exports.setupTracking = () => {
     //Attention this sideKey is pseudo-random and not unique, for production mode use true random generator hardware or API
     let key = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
     let provider = 'https://nodes.devnet.iota.org'
-    let seed = 'CDCXSVFS9YUWWHRJRRREQTVQXSSWYBRYWADGUHXEN9GWCB99FAQHZTVUJYACKKMSBIDFDYVRZFTNWHX9N'
+    let seed = 'ZOEB9BJXYXUNYC9BJDNYJVKWPUDZFZHVMY9OLD9NKCVOUS9BSXHZNIUYYITMRDITKJJSAZPHCIOWXSBQN'
+//'ZPVOPXJUGLHIHRIHXTFXWJDOTOLEITWJQMSTAWDIAWJNDTTNFRHUKLPLCRKZPYXZALUABKAYNGIINQMJE'
 
     //Initialise MAM State
     let initial = Mam.init(provider,seed)
@@ -86,7 +87,7 @@ exports.stopTracking = () => {
 exports.registerIdentity = async hash => {
     //Mam setup
     let mode = 'restricted'
-    let sideKey = 'XuL34ALSe_r' //could change with updates
+    let sideKey = 'XuL34ALSer' //could change with updates
     let provider = 'https://nodes.devnet.iota.org'
     let mamExplorerLink = `https://mam-explorer.firebaseapp.com/?provider=${encodeURIComponent(provider)}&mode=${mode}&root=`
     
