@@ -1,3 +1,6 @@
+//Setup general------------------------------------------------------------
+var counter = 0 //necessary to write the first root into a file
+
 //MAM setup----------------------------------------------------------------
 
 //Require MAM package from iota.js
@@ -87,6 +90,12 @@ const publish = async packet => {
   // Attach the payload
   await Mam.attach(message.payload, message.address, 3, 9)
 
+  if(counter==0){ //the first root should be stored in order to track the entire channel
+    fs.writeFile(`root.json`, JSON.stringify({root: message.root, link:`${mamExplorerLink}${message.root}`}), function (err) {
+        if (err) throw err
+     })
+    counter++
+   }
   console.log('Published', packet, '\n')
   console.log('Address', message.address, '\n')
   return message.root
@@ -96,16 +105,25 @@ const publishGPS = async () => {
   if(gps.state.lat) {
     let gpsData = getGPS()
 
-  const root = await publish({
+    const root = await publish({
     message: gpsData,
     timestamp: (new Date()).toLocaleString()
   })
- 
   console.log(`Verify with MAM Explorer:\n${mamExplorerLink}${root}\n`)
   console.log('Root: ',root,'\n')
   return root
   } else {
     console.log(`No GPS-signal... Will try again in ${interval} seconds.\n`)
+  }
+  //Even if no signal is available the first message will be published
+  if(counter==0) {
+    let gpsData = getGPS()
+
+    const root = await publish({
+      message: gpsData,
+      timestamp: (new Date()).toLocaleString()
+    })
+    return root
   }
 }
 

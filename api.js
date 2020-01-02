@@ -43,28 +43,32 @@ app.get('/create-claim', function (req, res) {
 }) 
 
 app.get('/create-tracking', function(req,res) {
-    //const data = req.body.data //receive expiration date
-    //const expiration = data.expirationDate
    try{
     	const sideKey = setupTracking()
     	let result = startTracking()
     	if(result){
        		const root =  fs.readFileSync('./root.json','utf-8')
         	console.log('Root', root)
-		res.status(200).send(JSON.parse(root))
-    	} else {res.status(403).send(false)}
-} catch(err){res.status(403).send(false)}
+		    res.status(200).send(JSON.parse(root))
+    	} else {
+            res.status(403).send(false)
+        }
+    } catch(err){
+        res.status(403).send(false)
+    }
 })
 
 app.get('/stop-tracking', function(req,res) {
-    //const data = req.body.data //receive expiration date
-    //const expiration = data.expirationDate
    try {
 	let result = stopTracking()
    	 if(result){
 	    res.status(200).send(true)
-    	} else {res.status(403).send(false)}
-	} catch(err){res.status(403).send(false)}
+    	} else {
+            res.status(403).send(false)
+        }
+	} catch(err){
+        res.status(403).send(false)
+    }
 })
   
   
