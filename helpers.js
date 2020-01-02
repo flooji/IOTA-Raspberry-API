@@ -60,7 +60,7 @@ exports.setupTracking = () => {
 
 //Start tracking
 exports.startTracking = () => {
-     if (shelljs.exec('pm2 start publish-on-same-channel.js --name="publish-on-same-channel.js" --update-env').code !== 0) { //if code is not equal 0, process could not be started
+     if (shelljs.exec('pm2 start tracking.js --name="tracking.js" --update-env').code !== 0) { //if code is not equal 0, process could not be started
 	   console.log('process could not be started')
             return false
         } else {
@@ -70,8 +70,8 @@ exports.startTracking = () => {
 
 //Stop tracking
 exports.stopTracking = () => {
-    if(shelljs.exec('pm2 pid publish-on-same-channel.js') !== null) { //if result is not null, process does exist, so it can be deleted
-        if (shelljs.exec('pm2 delete publish-on-same-channel.js').code !== 0) { //if exit code is not 0, deletion failed
+    if(shelljs.exec('pm2 pid tracking.js') !== null) { //if result is not null, process does exist, so it can be deleted
+        if (shelljs.exec('pm2 delete tracking.js').code !== 0) { //if exit code is not 0, deletion failed
             console.log('process could not be deleted')
             return false
         } else {
