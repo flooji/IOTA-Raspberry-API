@@ -46,6 +46,7 @@ app.get('/create-tracking', function(req,res) {
    try{
     	const sideKey = setupTracking()
     	let result = startTracking()
+	console.log('Result', result)
     	if(result){
        		const root =  fs.readFileSync('./root.json','utf-8')
         	console.log('Root', root)
