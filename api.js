@@ -1,6 +1,5 @@
 var http = require('http')
 var express = require('express')
-var id = require('./create_ID')
 var {token} = require('./authenticate/tokenGenerator')
 var {setupTracking,startTracking,stopTracking} = require('./helpers.js')
 var fs = require('fs')
@@ -24,22 +23,6 @@ app.get('/authenticate', function (req, res) {
     } catch(err) {
         res.status(403).send('Could not authenticate device')
     }
-}) 
-
-app.get('/create-claim', function (req, res) {
-    let data = {
-        commodityGroup: 'Cameras',
-        seriesNumber: '101010',
-        numberOfItems: '38',
-        valueOfItem: '59',
-        currencyOfPrice: 'CHF',
-        owner: 'Sony Corporation',
-        deliveryDate: '27/01/2019'
-    }
-    id.createPackagingUnit(data).then(result => {
-        console.log('Claim created')
-        res.status(200).send(result)
-    })
 }) 
 
 app.get('/create-tracking', function(req,res) {
