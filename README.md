@@ -46,7 +46,7 @@ Check [this tutorial](https://medium.com/@DefCon_007/using-a-gps-module-neo-7m-w
 
 **Run**
 
-To run your API run ````node api.js```. You should see something like this in your browser if successful:
+To run your API run ```node api.js```. You should see something like this in your browser if successful:
 ![API running in browser](https://github.com/flooji/IOTA-Raspberry-API/blob/master/api.PNG)
 
 If you want to keep your API running and start it automatically when the Raspi is booting, you can use PM2: ```pm2 start api.js```
