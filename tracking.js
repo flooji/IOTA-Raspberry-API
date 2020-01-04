@@ -65,7 +65,7 @@ console.log(`Serial port ${file} is opened and configured.\nMessages will appear
 const getGPS = () => {
 
 let packet = {
-	      time:   gps.state.time,
+	time:   gps.state.time,
         lat:    gps.state.lat,
         lon:    gps.state.lon,
         alt:    gps.state.alt,
