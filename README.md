@@ -6,7 +6,8 @@ You can use this repo together with my other repository tracking_app.
 
 ## Table of Contents
 
-- [Getting started](#getting started)
+- [Getting started](#getting-started)
+- [API functions](#api-functions)
 - [Support](#support)
 - [Contributing](#contributing)
 - [Credits](#credits)
@@ -40,7 +41,7 @@ To connect your GNSS-module SAM-M8Q you can use a UART-connection:
 
 Check [this tutorial](https://medium.com/@DefCon_007/using-a-gps-module-neo-7m-with-raspberry-pi-3-45100bc0bb41) to see how GPS-data from the serial port can be viewed on the Raspberry Pi.
 
-## API-functions
+## API functions
 
 These API-functions are currently available:
 
