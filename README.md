@@ -64,10 +64,14 @@ call: http://raspi_url:3000/authenticate
 returns a credential in form of a JSON web token. The token is signed using a private key (available in this repo - NOT safe for production)
 
 **Start tracking**
+To start a tracking (publish GNSS data over the tangle) with pm2
+
 call: http://raspi_url:3000/create-tracking
 returns true if the tracking could be started and false if an error occured (e.g. a tracking process is already running)
 
 **Stop tracking**
+To stop tracking with pm2 
+
 call: http://raspi_url:3000/stop-tracking
 returns true if the tracking could be stopped and false if an error occured (e.g. no tracking process is running that could be stopped)
 
