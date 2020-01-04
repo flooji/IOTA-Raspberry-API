@@ -77,6 +77,7 @@ returns true if the tracking could be started and false if an error occured (e.g
 To stop tracking with pm2 
 
 **call**: http://raspi_url:3000/stop-tracking
+
 returns true if the tracking could be stopped and false if an error occured (e.g. no tracking process is running that could be stopped)
 
 ## Support
