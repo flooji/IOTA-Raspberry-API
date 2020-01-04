@@ -2,6 +2,8 @@
 NodeJS REST API to authenticate a device and to track objects by publishing positioning data to the IOTA tangle.
 You can use this repo together with my other repository tracking_app. 
 
+![Tracking box](https://github.com/flooji/IOTA-Raspberry-API/blob/master/trackingbox.jpg)
+
 :warning: This API was written by a beginner. 
 
 ## Table of Contents
@@ -14,16 +16,17 @@ You can use this repo together with my other repository tracking_app.
 
 ## Getting started
 
-Prerequisites
+**Prerequisites**
 
 - Raspberry Pi (I used the model 3B+) with internet connection
 - GNSS-Module [SAM-M8Q](https://www.u-blox.com/en/product/sam-m8q-module) from u-blox
 - [NodeJS](https://nodejs.org/en/) installed on your Raspi
+- The Node process manager [PM2](https://pm2.keymetrics.io/) installed on your Raspi (```npm install pm2 -g```)
 
-Installation
+**Installation**
 
 You can download this repo to your Raspberry Pi and then run ```npm install``` to install all dependencies automatically. 
-npm-modules (dependencies are also visible in package.json-file):
+npm-modules (also visible in package.json-file):
 - @iota/mam v.0.7.3
 - cors v.2.8.5
 - crypto-js v.3.1.9-1
@@ -41,15 +44,32 @@ To connect your GNSS-module SAM-M8Q you can use a UART-connection:
 
 Check [this tutorial](https://medium.com/@DefCon_007/using-a-gps-module-neo-7m-with-raspberry-pi-3-45100bc0bb41) to see how GPS-data from the serial port can be viewed on the Raspberry Pi.
 
+**Run**
+
+To run your API run ````node api.js```. You should see something like this in your browser if successful:
+![API running in browser](https://github.com/flooji/IOTA-Raspberry-API/blob/master/api.PNG)
+
+If you want to keep your API running and start it automatically when the Raspi is booting, you can use PM2: ```pm2 start api.js```
+To view if your API is running, run: ```pm2 list```
+For more commands visit the [pm2 official website](https://pm2.keymetrics.io/) 
+
 ## API functions
 
 These API-functions are currently available:
 
-authenticate 
+**Authenticate**
+To authenticate the raspberry by receiving a credential from the Raspberry Pi (which can be compared with a hashed credential on the IOTA tangle)
 
-startTracking
+call: http://raspi_url:3000/authenticate
+returns a credential in form of a JSON web token. The token is signed using a private key (available in this repo - NOT safe for production)
 
-stopTracking
+**Start tracking**
+call: http://raspi_url:3000/create-tracking
+returns true if the tracking could be started and false if an error occured (e.g. a tracking process is already running)
+
+**Stop tracking**
+call: http://raspi_url:3000/stop-tracking
+returns true if the tracking could be stopped and false if an error occured (e.g. no tracking process is running that could be stopped)
 
 ## Support
 
