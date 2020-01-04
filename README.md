@@ -2,12 +2,14 @@
 NodeJS REST API to authenticate a device and to track objects by publishing positioning data to the IOTA tangle.
 You can use this repo together with my other repository tracking_app. 
 
+:warning: This API was written by a beginner. 
 
 ## Table of Contents
 
 - [Getting started](#getting started)
 - [Support](#support)
 - [Contributing](#contributing)
+- [Credits](#credits)
 
 ## Getting started
 
@@ -38,17 +40,13 @@ To connect your GNSS-module SAM-M8Q you can use a UART-connection:
 
 Check [this tutorial](https://medium.com/@DefCon_007/using-a-gps-module-neo-7m-with-raspberry-pi-3-45100bc0bb41) to see how GPS-data from the serial port can be viewed on the Raspberry Pi.
 
-
-## API functions
+## API-functions
 
 These API-functions are currently available:
 
-- Name
-- Description
-- Installation instructions
-- Usage instructions
-- Support instructions
-- Contributing instructions
+- authenticate 
+- startTracking
+- stopTracking
 
 ## Support
 
@@ -57,3 +55,7 @@ Please [open an issue](https://github.com/flooji/IOTA-Raspberry-API/issues/new) 
 ## Contributing
 
 Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/flooji/IOTA-Raspberry-API/compare/).
+
+## Credits
+
+Credits to the IOTA foundation whose [tutorials](https://docs.iota.org/docs/client-libraries/0.1/mam/js/create-restricted-channel) helped me to realize this project.
