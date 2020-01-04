@@ -22,7 +22,7 @@ Prerequisites
 
 Installation
 
-You can download this repo and then run ```sh npm install``` to install all dependencies automatically. 
+You can download this repo to your Raspberry Pi and then run ```npm install``` to install all dependencies automatically. 
 npm-modules (dependencies are also visible in package.json-file):
 - @iota/mam v.0.7.3
 - cors v.2.8.5
@@ -33,7 +33,7 @@ npm-modules (dependencies are also visible in package.json-file):
 - serialport v.0.8.3
 - uuid v.3.3.3
 
-To install a npm module run ```sh npm install module_name```.
+To install a npm module run ```npm install module_name```.
 
 To connect your GNSS-module SAM-M8Q you can use a UART-connection:
 
@@ -45,9 +45,11 @@ Check [this tutorial](https://medium.com/@DefCon_007/using-a-gps-module-neo-7m-w
 
 These API-functions are currently available:
 
-- authenticate 
-- startTracking
-- stopTracking
+authenticate 
+
+startTracking
+
+stopTracking
 
 ## Support
 
